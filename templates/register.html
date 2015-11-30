@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="{% static "assets/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Gorditas' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Roboto:100' rel='stylesheet' type='text/css'>
+	<script src="{% static "assets/bootstrap/js/bootstrap.min.js" %}"></script>
+	<title>Filepanda | Register</title>
+</head>
+<body style="background-image: url({% static "assets/images/register.png" %});background-size: cover;">
+
+	<nav class="navbar navbar-default" style="min-height: 80px;">
+	<div class="container">
+  		<div class="container-fluid">
+    		<div class="navbar-header" style="margin-top:15px;">
+      			<a class="navbar-brand" href="/accounts/login/" style="font-family:Gorditas; color:black;">
+        			<span><img alt="Brand" src="{% static "assets/images/panda.png" %}" style="height:30px;"></span>
+        			filepanda
+     			 </a>
+    		</div>
+    		<a href="/accounts/login/"><button type="button" class="btn btn-success navbar-btn navbar-right" style="margin-top:20px;">Sign in</button></a>
+ 		 </div>
+ 	</div>
+	</nav>
+<div class="container">
+
+<h1 style="text-align:center;font-family: 'Roboto', sans-serif;">Join In, Create Your Filepanda Account</h1>
+<div class="col-md-1"></div>
+<div class="col-md-4"><br><br><br>
+		<div class="panel panel-default" style="background-color: #525252;">
+		<div class="panel-body" style="margin-top:10px;margin-bottom:10px;">
+<form action="/accounts/register/" method="post"> {% csrf_token %}
+
+	<div class="row">
+		<div class="col-xs-6 col-sm-6 col-md-6">
+			<div class="form-group">
+				<input class="form-control" placeholder="First Name" name="first_name" id="first_name" type="text">
+			</div>
+		</div>
+		<div class="col-xs-6 col-sm-6 col-md-6">
+				<div class="form-group">
+					<input class="form-control" placeholder="Last Name" name="last_name" id="last_name" type="text">
+				</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<input class="form-control" placeholder="Username" name="username" id="username" type="text">
+	</div>
+
+	<div class="form-group">
+		<input class="form-control" placeholder="Email" name="email" id="email" type="text">
+	</div>
+
+	<div class="row">
+		<div class="col-xs-6 col-sm-6 col-md-6">
+			<div class="form-group">
+				<input class="form-control" placeholder="Password" name="password1" id="password1" type="password">
+			</div>
+		</div>
+		<div class="col-xs-6 col-sm-6 col-md-6">
+			<div class="form-group">
+				<input class="form-control" placeholder="Re-type password" name="password2" id="password2" type="password">
+			</div>
+		</div>
+	</div>
+
+		<input class="btn btn-lg btn-success btn-block" type="submit" value="Register" />
+
+	</form>
+	</div>
+	</div>
+</div>
+<div class="col-md-1"></div>
+<div class="col-md-6">
+	
+</div>
+	</div>
+</body>
+</html>

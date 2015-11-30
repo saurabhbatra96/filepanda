@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="{% static "assets/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Gorditas' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Roboto:100' rel='stylesheet' type='text/css'>
+	<script src="{% static "assets/bootstrap/js/bootstrap.min.js" %}"></script>
+	<title>Filepanda</title>
+</head>
+<body>
+	<nav class="navbar navbar-default" style="min-height: 80px;">
+	<div class="container">
+  		<div class="container-fluid">
+    		<div class="navbar-header" style="margin-top:15px;">
+      			<a class="navbar-brand" href="#" style="font-family:Gorditas; color:black;">
+        			<span><img alt="Brand" src="{% static "assets/images/panda.png" %}" style="height:30px;"></span>
+        			filepanda
+     			 </a>
+    		</div>
+    		
+    		<a class="navbar-link" href="/accounts/logout/"><button type="button" class="btn btn-danger navbar-btn navbar-right" style="margin-top:20px;">Log Out</button></a>
+ 		 </div>
+ 	</div>
+	</nav>
+
+	<div class="container" style="font-family:Roboto;">
+		<div class="row">
+			<div class="col-md-4" style="text-align:center;vertical-align:middle;"><br><br>
+			<div class="row">
+			<div class="col-md-4">
+			<br>
+			<img src="{% static "assets/images/pandaicon.png" %}" style="width:100%;"><hr>
+			</div>
+			<div class="col-md-8" style="text-align:left;">
+				<h2 style="font-weight:bold;">{{ full_name }}</h2>
+			</div>
+			</div><br><br><br>
+			<div class="row">
+<form action="/accounts/loggedin/" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>{{ form.non_field_errors }}</p>
+    <h2>Get Started, Upload a File.</h2><br>
+    <p>
+        {{ form.docfile.errors }}
+        {{ form.docfile }}
+    </p>
+    <p><input type="image" src="{% static "assets/images/uploadbutton.png" %}" value="Upload" style="width:30%;"></p>
+</form>
+			</div>
+			</div>
+			<div class="col-md-8" style="text-align:center;"><br><br>
+			{% if documents %}
+			<div style="height:500px;overflow:auto;border:1;">
+			<table class="table table-bordered table-hover">
+			<thead>
+				
+			</thead>
+			<tbody>
+			{% for document in documents %}
+        	{% if full_name == document.owner.username %}
+            	{% if document.delete == 0 %}
+            		<tr><td style="cursor:pointer;"><span class="glyphicon glyphicon-inbox"></span> <b style="font-size: 18px;">{{ document.docfile.name }}</b><hr>
+            		<p><b>MD Value:</b> {{ document.md_value }}</p>
+                	<p><b>Short link:</b> http://127.0.0.1:8000/su/{{ document.id }}/</p>
+                	<p><b>Zipped link:</b> http://127.0.0.1:8000/media/zipped/{{ document.filename }}</p>
+                	</td>
+                	<td><br><br><a href="{{ document.docfile.url }}"><span class="glyphicon glyphicon-download-alt"></span></a><br><br>
+                	<a href="http://127.0.0.1:8000/media/zipped/{{ document.filename }}"><span class="glyphicon glyphicon-briefcase"></span></a><br><br>
+                	<a href="/accounts/delete/{{ document.id }}/"><span class="glyphicon glyphicon-trash"></span></a></td>
+                	</tr>
+                {% endif %}
+        	{% endif %}
+   			{% endfor %}
+				
+			</tbody>
+				
+			</table>
+			</div>
+			{% else %}
+				<h1>Upload a File, Get Started.</h1>
+			{% endif %}
+			</div>
+		</div>
+	</div>
+</body>
